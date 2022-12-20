@@ -8,15 +8,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookregister2.MainScreenController">
    <children>
-      <Button fx:id="editButton" layoutX="678.0" layoutY="406.0" mnemonicParsing="false" onAction="#buttonEdit" text="Редактировать" />
       <Button fx:id="addButton" layoutX="678.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonAdd" prefHeight="25.0" prefWidth="98.0" text="Добавить" />
       <Button fx:id="deleteButton" layoutX="678.0" layoutY="474.0" mnemonicParsing="false" onAction="#buttonDelete" prefHeight="25.0" prefWidth="98.0" text="Удалить" />
       <TableView fx:id="tableView" layoutX="26.0" layoutY="27.0" prefHeight="364.0" prefWidth="749.0">
         <columns>
-          <TableColumn fx:id="bookNameColumn" prefWidth="223.0" text="Название" />
-          <TableColumn fx:id="bookAuthorColumn" prefWidth="221.0" text="Автор" />
-            <TableColumn fx:id="bookGenreColumn" prefWidth="152.0" text="Жанр" />
-            <TableColumn fx:id="bookPresenceColumn" prefWidth="82.0" text="Наличие" />
+          <TableColumn fx:id="bookNameColumn" onEditCommit="#onEditChangedName" prefWidth="223.0" text="Название" />
+          <TableColumn fx:id="bookAuthorColumn" onEditCommit="#onEditChangedAuthor" prefWidth="221.0" text="Автор" />
+            <TableColumn fx:id="bookGenreColumn" onEditCommit="#onEditChangedGenre" prefWidth="152.0" text="Жанр" />
+            <TableColumn fx:id="bookPresenceColumn" onEditCommit="#onEditChangedPresence" prefWidth="82.0" text="Наличие" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -3,11 +3,11 @@ package com.example.bookregister2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,8 +20,6 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button deleteButton;
 
-    @FXML
-    private Button editButton;
 
     @FXML
     private TableView<Book> tableView;
@@ -62,7 +60,10 @@ public class MainScreenController implements Initializable {
 
         tableView.setItems(getBooks());
         tableView.setEditable(true);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        bookNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        bookAuthorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        bookGenreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        bookPresenceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
     public ObservableList<Book>  getBooks()
@@ -84,15 +85,38 @@ public class MainScreenController implements Initializable {
 
         selectedRows = tableView.getSelectionModel().getSelectedItems();
 
-        for (Book book: selectedRows)
-        {
+        for (Book book : selectedRows) {
             allBooks.remove(book);
         }
     }
 
-    public void buttonEdit(ActionEvent event) {
+    @FXML
+    void onEditChangedAuthor(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
+        Book book = tableView.getSelectionModel().getSelectedItem();
+        book.setBookAuthor(bookStringCellEditEvent.getNewValue());
     }
 
+    @FXML
+    void onEditChangedGenre(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
+        Book book = tableView.getSelectionModel().getSelectedItem();
+        book.setBookGenre(bookStringCellEditEvent.getNewValue());
+    }
+
+    @FXML
+    void onEditChangedName(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
+        Book book = tableView.getSelectionModel().getSelectedItem();
+        book.setBookName(bookStringCellEditEvent.getNewValue());
+
+    }
+
+    @FXML
+    void onEditChangedPresence(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
+        Book book = tableView.getSelectionModel().getSelectedItem();
+        book.setBookPresence(bookStringCellEditEvent.getNewValue());
+    }
+
+
+    @FXML
     public void buttonAdd(ActionEvent event) {
         Book newBook = new Book(textFieldName.getText(),
                 textFieldAuthor.getText(),
@@ -101,13 +125,4 @@ public class MainScreenController implements Initializable {
 
         tableView.getItems().add(newBook);
     }
-
-
-//    public void newPersonButtonPushed()
-//    {
-//        Book newBook = new Book(firstNameTextField.getText(),
-//                lastNameTextField.getText(),
-//
-//        tableView.getItems().add(newBook);
-//    }
 }
