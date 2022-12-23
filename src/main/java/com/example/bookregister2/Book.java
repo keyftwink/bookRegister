@@ -3,13 +3,31 @@ package com.example.bookregister2;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Book {
+
+    Integer bookID;
     private SimpleStringProperty bookName, bookAuthor, bookGenre, bookPresence;
+
+    public Book(Integer bookID, String bookName, String bookAuthor, String bookGenre, String bookPresence){
+        this.bookID = bookID;
+        this.bookName = new SimpleStringProperty(bookName);
+        this.bookAuthor = new SimpleStringProperty(bookAuthor);
+        this.bookGenre = new SimpleStringProperty(bookGenre);
+        this.bookPresence = new SimpleStringProperty(bookPresence);
+    }
 
     public Book(String bookName, String bookAuthor, String bookGenre, String bookPresence){
         this.bookName = new SimpleStringProperty(bookName);
         this.bookAuthor = new SimpleStringProperty(bookAuthor);
         this.bookGenre = new SimpleStringProperty(bookGenre);
         this.bookPresence = new SimpleStringProperty(bookPresence);
+    }
+
+    public Integer getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(Integer bookID) {
+        this.bookID = bookID;
     }
 
     public String getBookName() {
