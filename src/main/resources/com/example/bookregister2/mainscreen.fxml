@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookregister2.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="800.0" style="-fx-background-color: #ABCDEF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookregister2.MainScreenController">
    <children>
       <Button fx:id="addButton" layoutX="678.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonAdd" prefHeight="25.0" prefWidth="98.0" text="Добавить" />
       <Button fx:id="deleteButton" layoutX="678.0" layoutY="474.0" mnemonicParsing="false" onAction="#buttonDelete" prefHeight="25.0" prefWidth="98.0" text="Удалить" />

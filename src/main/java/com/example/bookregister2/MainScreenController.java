@@ -104,84 +104,22 @@ public class MainScreenController implements Initializable {
         bookGenreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         bookPresenceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-//        FilteredList<Book> filteredData = new FilteredList<>(books, book -> true);
-//
-//        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredData.setPredicate(Book -> {
-//                //Если значение поиска отсутствует, то отобразит все записи или любые записи, которые есть на данный момент
-//                if (newValue.isEmpty() || newValue.isBlank()) {
-//                    return true;
-//                }
-//
-//                String searchKeyword = newValue.toLowerCase();
-//
-//                if (Book.getBookName().toLowerCase().contains(searchKeyword)) {
-//                    return true; //Найдено совпадение в bookName
-//                } else if (Book.getBookAuthor().toLowerCase().contains(searchKeyword)) {
-//                    return true;
-//                } else if (Book.getBookGenre().toLowerCase().contains(searchKeyword)) {
-//                    return true;
-//                } else if (Book.getBookPresence().toLowerCase().contains(searchKeyword)) {
-//                    return true;
-//                } else
-//                    return false; //Совпадения не найдены
-//            });
-//        });
-//
-//        SortedList<Book> sortedData = new SortedList<>(filteredData);
-//
-//        //Связывает отсортированный вариант с TableView
-//        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-//
-//        //Применяет отсортированные данные в TableView
-//        tableView.setItems(sortedData);
-
-
+        sort();
 
     }
 
     @FXML
     void searchBarAction(ActionEvent event) {
 
-
-//            FilteredList<Book> filteredData = new FilteredList<>(books, book -> true);
-//
-//            searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-//                filteredData.setPredicate(Book -> {
-//                    //Если значение поиска отсутствует, то отобразит все записи или любые записи, которые есть на данный момент
-//                    if (newValue.isEmpty() || newValue.isBlank()) {
-//                        return true;
-//                    }
-//
-//                    String searchKeyword = newValue.toLowerCase();
-//
-//                    if (Book.getBookName().toLowerCase().contains(searchKeyword)) {
-//                        return true; //Найдено совпадение в bookName
-//                    } else if (Book.getBookAuthor().toLowerCase().contains(searchKeyword)) {
-//                        return true;
-//                    } else if (Book.getBookGenre().toLowerCase().contains(searchKeyword)) {
-//                        return true;
-//                    } else if (Book.getBookPresence().toLowerCase().contains(searchKeyword)) {
-//                        return true;
-//                    } else
-//                        return false; //Совпадения не найдены
-//                });
-//            });
-//
-//            SortedList<Book> sortedData = new SortedList<>(filteredData);
-//
-//            //Связывает отсортированный вариант с TableView
-//            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-//
-//            //Применяет отсортированные данные в TableView
-//            tableView.setItems(sortedData);
-
-
         }
 
 
     @FXML
     void buttonDelete(ActionEvent event) {
+
+        tableView.setItems(books);
+
+        if(books.size() == 1) return;
         ObservableList<Book> selectedRows, allBooks;
         allBooks = tableView.getItems();
 
@@ -193,7 +131,9 @@ public class MainScreenController implements Initializable {
             DBEdit(dbbook);
 
             allBooks.remove(book);
+
         }
+        sort();
     }
 
     @FXML
@@ -240,6 +180,7 @@ public class MainScreenController implements Initializable {
     //Кнопка добавления в список
     @FXML
     public void buttonAdd(ActionEvent event) {
+
         if (textFieldName.getText().isEmpty() || textFieldAuthor.getText().isEmpty() || textFieldGenre.getText().isEmpty() || textFieldPresenсe.getText().isEmpty()){
             return;
         }
@@ -249,11 +190,14 @@ public class MainScreenController implements Initializable {
                 textFieldGenre.getText(),
                 textFieldPresenсe.getText());
 
+        tableView.setItems(books);
         tableView.getItems().add(newBook);
 
         String dbbook = "INSERT books(bookID, bookName, bookAuthor, bookGenre, bookPresence) VALUES (" + (books.get(books.size() - 1).getBookID()) + ", '" + textFieldName.getText() + "', '" +  textFieldAuthor.getText()+ "', '" + textFieldGenre.getText()+ "', '" + textFieldPresenсe.getText() +"')";
 
         DBEdit(dbbook);
+
+        sort();
     }
 
     //Метод для работы с базой данных
@@ -267,5 +211,38 @@ public class MainScreenController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void sort(){
+        FilteredList<Book> filteredData = new FilteredList<>(books, book -> true);
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(Book -> {
+                //Если значение поиска отсутствует, то отобразит все записи или любые записи, которые есть на данный момент
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                if (Book.getBookName().toLowerCase().contains(searchKeyword)) {
+                    return true; //Найдено совпадение в bookName
+                } else if (Book.getBookAuthor().toLowerCase().contains(searchKeyword)) {
+                    return true;
+                } else if (Book.getBookGenre().toLowerCase().contains(searchKeyword)) {
+                    return true;
+                } else if (Book.getBookPresence().toLowerCase().contains(searchKeyword)) {
+                    return true;
+                } else
+                    return false; //Совпадения не найдены
+            });
+        });
+
+        SortedList<Book> sortedData = new SortedList<>(filteredData);
+
+        //Связывает отсортированный вариант с TableView
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+        //Применяет отсортированные данные в TableView
+        tableView.setItems(sortedData);
     }
 }
