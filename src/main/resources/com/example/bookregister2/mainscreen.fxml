@@ -8,8 +8,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="800.0" style="-fx-background-color: #ABCDEF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookregister2.MainScreenController">
    <children>
-      <Button fx:id="addButton" layoutX="678.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonAdd" prefHeight="25.0" prefWidth="98.0" text="Добавить" />
-      <Button fx:id="deleteButton" layoutX="678.0" layoutY="474.0" mnemonicParsing="false" onAction="#buttonDelete" prefHeight="25.0" prefWidth="98.0" text="Удалить" />
+      <Button layoutX="678.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonAdd" prefHeight="25.0" prefWidth="98.0" text="Добавить" />
+      <Button layoutX="678.0" layoutY="474.0" mnemonicParsing="false" onAction="#buttonDelete" prefHeight="25.0" prefWidth="98.0" text="Удалить" />
       <TableView fx:id="tableView" layoutX="20.0" layoutY="71.0" prefHeight="355.0" prefWidth="755.0">
         <columns>
             <TableColumn fx:id="bookIDColumn" editable="false" prefWidth="75.0" text="ID" />
@@ -26,6 +26,6 @@
       <TextField fx:id="textFieldAuthor" layoutX="241.0" layoutY="440.0" prefHeight="25.0" prefWidth="160.0" promptText="Автор" />
       <TextField fx:id="textFieldGenre" layoutX="417.0" layoutY="440.0" prefHeight="25.0" prefWidth="139.0" promptText="Жанр" />
       <TextField fx:id="textFieldPresenсe" layoutX="570.0" layoutY="440.0" prefHeight="25.0" prefWidth="78.0" promptText="Наличие" />
-      <TextField fx:id="searchBar" layoutX="62.0" layoutY="26.0" onAction="#searchBarAction" prefHeight="25.0" prefWidth="666.0" promptText="Введите запрос" />
+      <TextField fx:id="searchBar" layoutX="62.0" layoutY="26.0" prefHeight="25.0" prefWidth="666.0" promptText="Введите запрос" />
    </children>
 </AnchorPane>

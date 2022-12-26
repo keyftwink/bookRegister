@@ -22,12 +22,7 @@ import java.util.logging.Logger;
 
 public class MainScreenController implements Initializable {
 
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button deleteButton;
-
+    //Конфигурация таблицы
     @FXML
     private TableView<Book> tableView;
 
@@ -45,6 +40,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Book, String> bookPresenceColumn;
 
+    //Переменные, использующиеся для добавления книги
     @FXML
     private TextField textFieldAuthor;
 
@@ -57,11 +53,14 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField textFieldPresenсe;
 
+    //Строка поиска
     @FXML
     private TextField searchBar;
 
+    //Создание списка книг
     ObservableList<Book> books = FXCollections.observableArrayList();
 
+    //Инициализация класса контроллера
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -91,12 +90,14 @@ public class MainScreenController implements Initializable {
             e.printStackTrace();
         }
 
+        //Установка колонок в таблице
         bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookName"));
         bookAuthorColumn.setCellValueFactory(new PropertyValueFactory<>("bookAuthor"));
         bookGenreColumn.setCellValueFactory(new PropertyValueFactory<>("bookGenre"));
         bookPresenceColumn.setCellValueFactory(new PropertyValueFactory<>("bookPresence"));
 
+        //Загрузка данных
         tableView.setItems(books);
         tableView.setEditable(true);
         bookNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -104,16 +105,11 @@ public class MainScreenController implements Initializable {
         bookGenreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         bookPresenceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        sort();
+        search();
 
     }
 
-    @FXML
-    void searchBarAction(ActionEvent event) {
-
-        }
-
-
+    //Кнопка удаления
     @FXML
     void buttonDelete(ActionEvent event) {
 
@@ -133,9 +129,10 @@ public class MainScreenController implements Initializable {
             allBooks.remove(book);
 
         }
-        sort();
+        search();
     }
 
+    //Редактирование
     @FXML
     void onEditChangedAuthor(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
         Book book = tableView.getSelectionModel().getSelectedItem();
@@ -197,7 +194,7 @@ public class MainScreenController implements Initializable {
 
         DBEdit(dbbook);
 
-        sort();
+        search();
     }
 
     //Метод для работы с базой данных
@@ -212,7 +209,9 @@ public class MainScreenController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public void sort(){
+
+    //Метод для работы строки поиска
+    public void search(){
         FilteredList<Book> filteredData = new FilteredList<>(books, book -> true);
 
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {

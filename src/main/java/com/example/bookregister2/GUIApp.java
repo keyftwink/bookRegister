@@ -8,15 +8,15 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class GUIApp extends Application {
     @Override
-    public void start(Stage stage) throws IOException, URISyntaxException {
+    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApp.class.getResource("mainscreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 527);
         stage.setTitle("Реестр книг");
+
+        //Установка иконки
         Image image = new Image(new File("iconLogo.png").toURI().toString());
         stage.getIcons().add(image);
         stage.setScene(scene);
